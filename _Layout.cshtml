@@ -1,0 +1,53 @@
+﻿<!--Rohith Pulyala 
+    CIS 174
+    3/3/2026-->
+<!--All images are from flagpedia.net-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DataTransfer_WebApp_Pulyala</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DataTransfer_WebApp_Pulyala.styles.css" asp-append-version="true" />
+
+    @*Flag Container styling*@
+    <style>
+        .flag-container 
+        {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .flag-container:hover 
+        {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <aside class="col-md-3">
+                    @RenderSection("Sidebar", required: false)
+            </aside>
+            <main class="col-md-9">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container text-center">
+            &copy; 2026 - DataTransfer_WebApp_Pulyala
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

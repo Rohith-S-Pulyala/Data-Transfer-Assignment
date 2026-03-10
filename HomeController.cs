@@ -105,5 +105,21 @@ namespace DataTransfer_WebApp_Pulyala.Controllers
 
             return View(countries.OrderBy(c => c.Name).ToList()); // Alphabetically sorting countries in data table.
         }
+
+        public IActionResult Details(string id) 
+        {
+            // GetCountryData Method in use to search for country.
+            List<Country> allCountries = GetCountryData();
+
+            // Looks for specific country
+            var country = allCountries.FirstOrDefault(c => c.Name == id);
+
+            if (country == null) 
+            {
+                return NotFound();
+            }
+
+            return View(country); // Sends the single country object to the Details view.
+        }
     }
 }

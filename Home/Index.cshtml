@@ -1,0 +1,63 @@
+@model List<Country>
+
+@*Countries filtered by these links in the sidebar*@
+@section Sidebar {
+    <h5 class="mt-3">Games</h5>
+    <ul class="list-unstyled">
+        <li><a asp-action="Index" asp-route-game="All" asp-route-category="@ViewBag.Category" class="@(ViewBag.Game == "All" ? "fw-bold text-primary" : "text-dark")">All</a></li>
+        <li><a asp-action="Index" asp-route-game="Summer Olympics" asp-route-category="@ViewBag.Category" class="@(ViewBag.Game == "Summer Olympics" ? "fw-bold text-primary" : "text-dark")">Summer</a></li>
+        <li><a asp-action="Index" asp-route-game="Winter Olympics" asp-route-category="@ViewBag.Category" class="@(ViewBag.Game == "Winter Olympics" ? "fw-bold text-primary" : "text-dark")">Winter</a></li>
+        <li><a asp-action="Index" asp-route-game="Paralympics" asp-route-category="@ViewBag.Category" class="@(ViewBag.Game == "Paralympics" ? "fw-bold text-primary" : "text-dark")">Paralympics</a></li>
+        <li><a asp-action="Index" asp-route-game="Youth Olympic Games" asp-route-category="@ViewBag.Category" class="@(ViewBag.Game == "Youth Olympic Games" ? "fw-bold text-primary" : "text-dark")">Youth</a></li>
+    </ul>
+
+    <h5 class="mt-4">Category</h5>
+    <ul class="list-unstyled">
+        <li><a asp-action="Index" asp-route-category="All" asp-route-game="@ViewBag.Game" class="@(ViewBag.Category == "All" ? "fw-bold text-success" : "text-dark")">All</a></li>
+        <li><a asp-action="Index" asp-route-category="Indoor" asp-route-game="@ViewBag.Game" class="@(ViewBag.Category == "Indoor" ? "fw-bold text-success" : "text-dark")">Indoor</a></li>
+        <li><a asp-action="Index" asp-route-category="Outdoor" asp-route-game="@ViewBag.Game" class="@(ViewBag.Category == "Outdoor" ? "fw-bold text-success" : "text-dark")">Outdoor</a></li>
+    </ul>
+}
+
+@*Flags are in a single row. The sidebar(_Layout.cshtml) is on the left, and the content fills the right*@
+<div class="row g-4 mt-2">
+    <div>
+        <h3>
+            Showing @ViewBag.Game
+            @if (ViewBag.Category != "All")
+            {
+                <span>(@ViewBag.Category)</span>
+            }
+        </h3>
+        <hr />
+    </div>
+    @*Displays flag and country name*@
+    @foreach (var country in Model)
+    {
+        @*Shows each country, their game(Summer, WInter, Paralympics, Youth), their categories, and their sport.*@
+        <div class="col-md-4 col-lg-3 text-center">
+            <div class="card h-100 shadow-sm border-0">
+            <a asp-controller="Home" asp-action="Details" asp-route-id="@country.Name" class="text-decoration-none text-dark">
+                <img src="https://flagpedia.net/data/flags/w580/@(country.FlagCode).png"
+                     class="card-img-top p-2"
+                     data-bs-toggle="tooltip" @*Tooltip for Participating Country details*@
+                     data-bs-html="true"
+                     title="<strong>@country.Name</strong><br/>@country.Game<br/>@country.Category<br/>@country.Sport"
+                     alt="@country.Name flag" />
+                <div class="card-body">
+                    <p class="card-text fw-bold">@country.Name</p>
+                </div>
+             </a>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) { 
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

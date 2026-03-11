@@ -1,0 +1,37 @@
+@model List<Country>
+
+@{
+    ViewData["Title"] = "My Favorite Countries";
+}
+
+<div class="container">
+    <h2>My Favorites</h2>
+
+    @if (Model.Count == 0)
+    {
+        <p>You haven't added any favorites yet!</p>
+    }
+    else
+    {
+        @*Form contains Clear Favorites Button to clear favorite countries off the page with Return to Home Page Button to return to the Home Index.*@
+        <form asp-action="Clear" method="post" class="mb-4">
+            <button type="submit" class="btn btn-danger">Clear Favorites</button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Return to Home Page</a>
+        </form>
+
+        @*Displays favorite countries in the page*@
+        <div class="row g-4">
+            @foreach (var country in Model)
+            {
+                <div class="col-md-4 col-lg-3 text-center">
+                    <div class=" card h-100 shadow-sm border-0">
+                        <img src="https://flagpedia.net/data/flags/w580/@(country.FlagCode).png" class="card-img-top p-2" />
+                        <div class="card-body">
+                            <p class="card-text fw-bold">@country.Name</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+     }
+</div>
